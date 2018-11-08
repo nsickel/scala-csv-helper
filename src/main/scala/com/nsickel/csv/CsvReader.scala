@@ -24,4 +24,12 @@ class CsvReader {
     val linesCsvFileOne = readFileLines(pathToFile)
     linesCsvFileOne.foreach(line => println(line))
   }
+
+  def mergeFiles(pathToFileOne:String, pathToFileTwo:String) = {
+    val linesCsvFileOne = readFileLines(pathToFileOne)
+    val linesCsvFileTwo = readFileLines(pathToFileTwo)
+
+    linesCsvFileTwo.foreach(line => linesCsvFileOne.add(line))
+    linesCsvFileOne.foreach(line => println(line))
+  }
 }
