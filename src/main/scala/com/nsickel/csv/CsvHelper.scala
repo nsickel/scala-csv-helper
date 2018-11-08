@@ -6,13 +6,13 @@ object CsvHelper extends App {
   val csvReader = new CsvReader
 
   mode match {
-    case CliCommands.ModeFilterUnique =>
-      csvReader.printUniqueLinesToComparedFile(args(1),args(2))
     case CliCommands.ModeRemoveDuplicates =>
       csvReader.printFileWithoutDuplicates(args(1))
+    case CliCommands.ModeFilterUnique =>
+      csvReader.printUniqueLinesToComparedFile(args(1),args(2))
+    case CliCommands.ModeMergeFiles =>
+      csvReader.mergeFiles(args(1),args(2))
     case _ =>
       CliCommands.printHelpText()
   }
 }
-
-
