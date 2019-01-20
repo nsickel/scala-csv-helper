@@ -1,5 +1,6 @@
 package com.nsickel.csv
 
+import scala.collection.mutable
 import scala.collection.mutable.LinkedHashSet
 
 class CsvReader {
@@ -11,6 +12,16 @@ class CsvReader {
       linesCsvFile.add(line)
     }
     bufferedSource.close
+    linesCsvFile
+  }
+
+  def readFileIndexedByFiledName(pathToFile:String, separtor:String) = {
+    val linesCsvFile = new mutable.LinkedHashSet[Array[String]]
+    val bufferedSource = io.Source.fromFile(pathToFile)
+    for (line <- bufferedSource.getLines) {
+      val cols = line.split(separtor).map(_.trim)
+      linesCsvFile.add(cols)
+    }
     linesCsvFile
   }
 
@@ -31,5 +42,16 @@ class CsvReader {
 
     linesCsvFileTwo.foreach(line => linesCsvFileOne.add(line))
     linesCsvFileOne.foreach(line => println(line))
+  }
+
+  def filterField(pathToFile:String, separator:String, fieldName:String) = {
+    val linesCsvFile = readFileIndexedByFiledName(pathToFile,separator)
+    val lineOne = linesCsvFile.iterator.next();
+    val indexFiledToFilter = lineOne.indexOf(fieldName);
+    if (indexFiledToFilter >= 0) {
+      linesCsvFile.foreach(line => println(line.apply(indexFiledToFilter)))
+    } else {
+      println("field: " + fieldName + " not found in file:" + pathToFile)
+    }
   }
 }
