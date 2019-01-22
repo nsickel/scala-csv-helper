@@ -14,6 +14,8 @@ object CsvHelper extends App {
       csvReader.mergeFiles(args(1),args(2))
     case CliCommands.ModeFilterField =>
       csvReader.filterField(args(1),args(2), args(3))
+    case CliCommands.ModeRemoveField =>
+      csvReader.removeField(args(1),args(2), args(3))
     case _ =>
       CliCommands.printHelpText()
   }
