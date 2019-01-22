@@ -54,4 +54,20 @@ class CsvReader {
       println("field: " + fieldName + " not found in file:" + pathToFile)
     }
   }
+
+  def removeField(pathToFile:String, separator:String, fieldName:String) = {
+    val linesCsvFile = readFileIndexedByFiledName(pathToFile,separator)
+    val lineOne = linesCsvFile.iterator.next();
+    val indexFiledToFilter = lineOne.indexOf(fieldName);
+    if (indexFiledToFilter >= 0) {
+      linesCsvFile.foreach(
+        line => {
+          val columns = line.patch(indexFiledToFilter,Nil,1)
+          println(columns.mkString(separator))
+        }
+      )
+    } else {
+      println("field: " + fieldName + " not found in file:" + pathToFile)
+    }
+  }
 }
